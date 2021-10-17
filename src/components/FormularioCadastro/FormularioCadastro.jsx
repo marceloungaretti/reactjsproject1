@@ -3,15 +3,20 @@ import DadosEntrega from "./DadosEntrega";
 import DadosPessoais from "./DadosPessoais";
 import DadosUsuario from "./DadosUsuario";
 
-function FormularioCadastro({aoEnviar, validarCPF}) {
+function FormularioCadastro({ aoEnviar, validarCPF }) {
+  const [etapaAtual, setEtapaAtual] = useState(0);
 
-  return (
-    <>
-    <DadosPessoais aoEnviar={aoEnviar} validarCPF={validarCPF}/>
-    <DadosUsuario />
-    <DadosEntrega />
-    </>
-  );
+  const formularios = [
+    <DadosUsuario aoEnviar={proximo} />,
+    <DadosPessoais aoEnviar ={proximo} validarCPF={validarCPF} />,
+    <DadosEntrega aoEnviar={aoEnviar} />
+  ];
+
+  function proximo() {
+    setEtapaAtual(etapaAtual + 1);
+  }
+
+  return <>{formularios[etapaAtual]}</>;
 }
 
 export default FormularioCadastro;
