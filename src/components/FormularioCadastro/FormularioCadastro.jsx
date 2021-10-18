@@ -4,25 +4,24 @@ import DadosEntrega from "./DadosEntrega";
 import DadosPessoais from "./DadosPessoais";
 import DadosUsuario from "./DadosUsuario";
 
-function FormularioCadastro({ aoEnviar, validarCPF }) {
+function FormularioCadastro({ aoEnviar }) {
   const [etapaAtual, setEtapaAtual] = useState(0);
   const [dadosColetados, setDados] = useState({});
-  useEffect(()=>{
-    if(etapaAtual == formularios.length - 1){
+  useEffect(() => {
+    if (etapaAtual === formularios.length - 1) {
       aoEnviar(dadosColetados);
     }
-
   })
 
   const formularios = [
     <DadosUsuario aoEnviar={coletarDados} />,
-    <DadosPessoais aoEnviar={coletarDados} validarCPF={validarCPF} />,
+    <DadosPessoais aoEnviar={coletarDados} />,
     <DadosEntrega aoEnviar={coletarDados} />,
     <Typography variant="h5">Obrigado por se cadastrar!</Typography>
   ];
 
   function coletarDados(dados) {
-    setDados({...dadosColetados, ...dados});
+    setDados({ ...dadosColetados, ...dados });
     proximo();
   }
 
@@ -31,13 +30,13 @@ function FormularioCadastro({ aoEnviar, validarCPF }) {
   }
 
   return <>
-  <Stepper activeStep={etapaAtual}>
-    <Step><StepLabel>Login</StepLabel></Step>
-    <Step><StepLabel>Pessoal</StepLabel></Step>
-    <Step><StepLabel>Entrega</StepLabel></Step>
-    <Step><StepLabel>Finalização</StepLabel></Step>
-  </Stepper>
-  {formularios[etapaAtual]}
+    <Stepper activeStep={etapaAtual}>
+      <Step><StepLabel>Login</StepLabel></Step>
+      <Step><StepLabel>Pessoal</StepLabel></Step>
+      <Step><StepLabel>Entrega</StepLabel></Step>
+      <Step><StepLabel>Finalização</StepLabel></Step>
+    </Stepper>
+    {formularios[etapaAtual]}
   </>;
 }
 
